@@ -1,0 +1,131 @@
+:root {
+  --space-cadet: #2e2d4d;
+  --tangerine: #f18f01;
+  --baby-powder: #fafdf6;
+}
+
+.grid-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 50px auto 50px;
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
+}
+
+.grid-container > div {
+  padding: 10px;
+}
+
+/* Hamburger menu icon, stays fixed on mobile for any possible scrolling */
+.menu-icon {
+  display: flex;
+  position: absolute;
+  top: 5px;
+  left: 10px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 2;
+  cursor: pointer;
+  padding: 12px;
+  background-color: #dadae3;
+}
+
+.header {
+  grid-area: header;
+  min-height: 50px;
+  padding: 0 0 0 50px;
+  color: #fff;
+  background-color: var(--space-cadet);
+  z-index: 1; /* Needs to sit above the hamburger menu icon */
+}
+
+/* Mobile-first side nav styles */
+.sidenav {
+  grid-area: sidenav;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 240px;
+  position: fixed;
+  overflow-y: auto;
+  z-index: 3; /* Needs to sit above the hamburger menu icon */
+  color: #fff;
+  background-color: var(--space-cadet);
+  overflow: hidden;
+  transform: translateX(-245px);
+  transition: all 0.6s ease-in-out;
+}
+
+/* The active class is toggled on hamburger and close icon clicks */
+.sidenav.active {
+  transform: translateX(0);
+}
+
+/* Only visible on mobile screens */
+.sidenav__close-icon {
+  position: absolute;
+  visibility: visible;
+  top: 8px;
+  right: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #ddd;
+}
+
+.main {
+  grid-area: main;
+  background-color: var(--baby-powder);
+}
+
+.main > div {
+  background: white;
+  border-radius: 5px;
+  padding: 10px;
+  color: var(--tangerine);
+}
+
+.footer {
+  grid-area: footer;
+  color: #fff;
+  background-color: var(--space-cadet);
+  z-index: 1; /* Needs to sit above the hamburger menu icon */
+}
+
+@media only screen and (min-width: 700px) {
+  .grid-container {
+    grid-template-columns: 240px 1fr;
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas:
+      "header main"
+      "sidenav main"
+      "footer main";
+  }
+
+  .menu-icon {
+    display: none;
+  }
+
+  .header {
+    box-shadow: none;
+    min-height: auto;
+    padding: 0;
+  }
+
+  .sidenav {
+    position: relative; /* Fixed position on mobile */
+    height: 100%;
+    transform: translateX(0);
+  }
+
+  .sidenav__close-icon {
+    visibility: hidden;
+  }
+
+  .footer {
+    box-shadow: none;
+  }
+}
